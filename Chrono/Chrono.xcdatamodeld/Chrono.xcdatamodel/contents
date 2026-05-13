@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24299" systemVersion="25B78" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ActivityLog" representedClassName="ActivityLog" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="userProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserProfile" inverseName="activityLogs" inverseEntity="UserProfile"/>
     </entity>
-    <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-    </elements>
+    <entity name="DailyEnergyEntry" representedClassName="DailyEnergyEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="baselineScore" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentScore" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="userProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserProfile" inverseName="energyEntries" inverseEntity="UserProfile"/>
+    </entity>
+    <entity name="UserProfile" representedClassName="UserProfile" syncable="YES" codeGenerationType="class">
+        <attribute name="chronotype" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="occupation" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="prefersCaffeine" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="activityLogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ActivityLog" inverseName="userProfile" inverseEntity="ActivityLog"/>
+        <relationship name="energyEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DailyEnergyEntry" inverseName="userProfile" inverseEntity="DailyEnergyEntry"/>
+    </entity>
 </model>
